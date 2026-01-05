@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sana Özel...</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        /* Genel Ayarlar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Arka Plan Renk Animasyonu */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Kart Tasarımı (Glassmorphism) */
+        .card {
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 40px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Fotoğraf Alanı */
+        .photo-container {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Yazı Stilleri */
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        p {
+            color: #fff;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        /* Buton Tasarımı */
+        .btn {
+            background: #fff;
+            color: #ff6b6b;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Atan Kalp Animasyonu */
+        .heart-icon {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 15px;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.3); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        /* Yağan Kalpler */
+        .falling-heart {
+            position: fixed;
+            top: -10%;
+            font-size: 20px;
+            color: #fff;
+            animation: fall linear forwards;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="photo-container">
+            <img src="https://images.unsplash.com/photo-1518568814500-bf5f8ca12f97?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Sevgili">
+        </div>
+        
+        <div class="heart-icon">❤️</div>
+        
+        <h1>Yeşilim'den Sevgilerle</h1>
+        <p>
+            Hayatıma kattığın tüm güzellikler için teşekkür ederim. 
+            Sen benim en güzel şansım, en tatlı tesadüfümsün.
+            İyi ki varsın...
+        </p>
+
+        <button class="btn" onclick="createHearts()">Sana Bir Sürprizim Var</button>
+    </div>
+
+    <script>
+        function createHearts() {
+            const colors = ['#ff6b6b', '#ff9ff3', '#feca57', '#fff'];
+            
+            // 50 tane kalp oluştur
+            for(let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('falling-heart');
+                    heart.innerHTML = '❤';
+                    
+                    // Rastgele konum ve renk
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+                    heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+                    
+                    document.body.appendChild(heart);
+
+                    // Animasyon bitince elementi sil (performans için)
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 5000);
+                }, i * 100); // Her kalbi biraz gecikmeli başlat
+            }
+        }
+    </script>
+</body>
+</html>
